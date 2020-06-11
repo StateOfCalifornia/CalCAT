@@ -14,7 +14,7 @@ This routine will download data for your state from a number of different modeli
 5. Run and deploy the app. 
 
 # Build and Test
-The California version of the app brings together even more publically available data on cases, deaths, hospitalizations, and bed capacity. Many of these data likely exist in your region. You will need to update these inputs for maximal utility. The app contains some dummy data for these variables (referred to as 'Actuals'), scaled from [the New York Times' repostory of daily cases and deaths](https://github.com/nytimes/covid-19-data). 
+The California version of the app brings together even more publically available data on cases, deaths, hospitalizations, and bed capacity. Many of these data likely exist in your region. You will need to update these inputs for maximal utility. The app contains some dummy data for these variables (referred to as 'Actuals'), scaled from [the New York Times' repository of daily cases and deaths](https://github.com/nytimes/covid-19-data). 
 
 # Contribute
 We can't wait to see what you do with this. Please fork, eidt and send us back as [pull requests](https://github.com/StateOfCalifornia/CalCAT/pulls) the changes you'd like to see. Maybe you'll incorporate your own estimator of R-Effective, or add functionality to improt data; you could improve on our simple ensemble estiamtes. Go Wild!
