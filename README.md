@@ -4,6 +4,7 @@ Welcome to the California COVID Assessment Tool (CalCAT).  This repository conta
 
 # Getting Started 
 _ATTN: This application is designed to run with Rstudio. If you need to download and install Rstudio go [here](https://rstudio.com/) to get started._ 
+
 0. __Fork this Repository__
 1. Enter your state's name in line 47 of the `cal_cat_data_routine.rmd` where it says ```state_name <- "California"```
 ``Ctrl+Alt+R``
