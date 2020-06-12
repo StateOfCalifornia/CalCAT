@@ -44,7 +44,7 @@ sapply(list.files("R", full.names = T), source)
 ############         PARAMTERS TO CHANGE        ###############
 ###############################################################
 
-state_name <- "Arizona"
+state_name <- "California"
 
 counties <- get_counties()
 state_abbrv <- get_state_abbrv(State = state_name)
