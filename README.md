@@ -1,4 +1,4 @@
-![](www/calcat_logo_wide.gif)
+![](www/calcat_logo_2.png)
 # Introduction 
 Welcome to the California COVID Assessment Tool (CalCAT).  This repository contains an application written in Shiny and for use with any US state to assist in assessing the many different models available for understanding COVID-19 transmission and spread. It brings together several data sources that are publicly available, and can be supplemented with your own data to improve the assessment. 
 
@@ -13,6 +13,8 @@ This routine will download data for your state from a number of different modeli
 4. Once the data routine markdown has completed, you can follow the output messages to see if any sources returned errors. If so, please [submit an issue](https://github.com/StateOfCalifornia/CalCAT/issues) letting us know what problem you ran into. 
 5. Next, you can run the app by opening the `global.R` file and again modifying the state name, now on line 40 (for example `state_name <- "Arizona"`).
 6. Run and deploy the app. 
+
+![](www/calcat_ga_screen.png)
 
 # Build and Test
 The California version of the app brings together even more publicly available data on cases, deaths, hospitalizations, and bed capacity. Many of these data likely exist in your region. You will need to update these inputs for maximal utility. The app contains some dummy data for these variables (referred to as 'Actuals'), scaled from [the New York Times' repository of daily cases and deaths](https://github.com/nytimes/covid-19-data). 
