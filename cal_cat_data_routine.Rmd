@@ -1,0 +1,238 @@
+---
+title: "CalCAT Automation"
+author: "Modeling Team"
+date: "4/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+###########################################################
+######                                              #######
+######    ########     #         ###         ###    #######
+######    #       #    #         #  #       #  #    #######
+######    #       #    #         #   #     #   #    #######
+######    ########     #         #    #   #    #    #######
+######    #       #    #         #     # #     #    #######
+######    #       #    #         #      #      #    #######
+######    ########     #######   #             #    #######
+######                                              #######
+###########################################################
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readr)
+library(stringr)
+library(pool)
+library(DBI)
+library(odbc)
+library(pool)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(lubridate)
+library(data.table)
+library(jsonlite)
+library(knitr)
+library(rmarkdown)
+library(RJDBC)
+library(kableExtra)
+
+sapply(list.files("R", full.names = T), source)
+
+###############################################################
+############         PARAMTERS TO CHANGE        ###############
+###############################################################
+
+state_name <- "Arizona"
+
+counties <- get_counties()
+state_abbrv <- get_state_abbrv(State = state_name)
+fipslist <- make_fips_list()
+rand_state <- get_rand_state_number(State = state_name)
+state_fips <- get_state_fips(type = "integer")
+state_fips_char <- get_state_fips(type = "character")
+
+data_path <- paste0("data/", state_abbrv,"/")
+dir.create(data_path)
+
+###############################################################
+###############################################################
+###############################################################
+
+```
+### COVIDActNow R-effective & Scenarios ###
+
+```{r include = FALSE}
+
+can_state_observed <- grab_can_state_observed_intervention()
+fwrite(can_state_observed, paste0(data_path,"can_state_reff_table.csv"))
+
+
+can_county_observed <- grab_can_county_observed_intervention()
+fwrite(can_county_observed, paste0(data_path,"can_full_reff_table.csv"))
+
+
+can_state_weak <- grab_can_state_weak_intervention()
+can_county_weak <- grab_can_county_weak_intervention()
+can_weak <- bind_rows(can_state_weak, can_county_weak)
+fwrite(can_weak, paste0(data_path,"can_weak_scenario.csv"))
+
+
+can_state_strong <- grab_can_state_strong_intervention()
+can_county_strong <- grab_can_county_strong_intervention()
+can_strong <- bind_rows(can_state_strong, can_county_strong)
+fwrite(can_strong, paste0(data_path,"can_strong_scenario.csv"))
+
+
+```
+
+## Nowcast/Forecast Data ####
+
+```{r include = FALSE}
+### rt.live ###
+
+
+rt_live <- grab_rt_live()
+
+fwrite(rt_live, paste0(data_path,"rt_live.csv"))
+
+```
+
+
+```{r include = FALSE}
+### Epiforecasts ###
+
+epi_forecast <- grab_epi_forecasts()
+
+fwrite(epi_forecast, paste0(data_path,"epi_forecast.csv"))
+
+```
+
+```{r include = FALSE}
+### Imperial College London ###
+
+icl_rt <- grab_icl_rt()
+
+fwrite(icl_rt, paste0(data_path,"icl_rt.csv"))
+
+```
+
+```{r include = FALSE}
+### LANL 
+
+### Cumualative Cases - Dtae will vary...so far, do not know how often these are updated.
+# LANL <- read.csv("https://covid-19.bsvgateway.org/forecast/us/files/2020-05-03/confirmed/2020-05-03_confirmed_quantiles_us_website.csv") %>%
+#   filter(simple_state == "california") %>% select(dates,q.10,q.50,q.90, truth_confirmed)
+# 
+# LANL_d <- read.csv("https://covid-19.bsvgateway.org/forecast/us/files/2020-05-03/deaths/2020-05-03_deaths_quantiles_us_website.csv") %>%
+#   filter(simple_state == "california") %>% select(dates,q.10,q.50,q.90, truth_confirmed)
+
+```
+
+
+```{r include = FALSE}
+####  Reich Lab 
+
+
+reich_lab  <- grab_reich_lab_deaths()
+
+fwrite(reich_lab, paste0(data_path,"reich_data.csv"))
+
+```
+
+```{r}
+### RAND ### 
+
+rand_df <- grab_rand()
+  
+fwrite(rand_df, paste0(data_path,"rand_scenarios.csv"))
+
+```
+
+
+```{r include = FALSE}
+### MOBS ### 
+#https://covid19.gleamproject.org/
+
+mobs <- grab_mobs()
+
+fwrite(mobs, paste0(data_path,"mobs.csv"))
+
+```
+
+
+```{r include = FALSE}
+### MIT ###
+#https://www.covidanalytics.io/projections
+#mit <- read.csv("data/covid_analytics_projections.csv", stringsAsFactors = FALSE) %>% filter(Province == "California")
+
+mit <- grab_mit()
+
+fwrite(mit, paste0(data_path,"mit.csv"))
+
+```
+
+
+```{r include = FALSE}
+### UCLA ###
+# "https://gist.githubusercontent.com/knowzou/ecacd65ab863979a9aea0f19a75252c3/raw/us_rt.json"
+
+ucla_state <- grab_ucla_state()
+
+fwrite(ucla_state, paste0(data_path,"ucla_state.csv"))
+
+```
+
+
+```{r include = FALSE}
+
+# UCLA county 
+
+# ucla_cnty <- grab_ucla_county()
+# 
+# fwrite(ucla_cnty, paste0(data_path,"ucla_county.csv"))
+
+
+```
+
+
+```{r include = FALSE}
+### Yugang Gu Group ### 
+# https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
+
+yu <- grab_ygg_state()
+
+fwrite(yu, paste0(data_path,"yuganggu.csv"))
+
+```
+
+
+```{r include = FALSE}
+
+yu.cnty <- grab_ygg_county()
+
+fwrite(yu.cnty, paste0(data_path,"yuganggu_county.csv"))
+
+
+```
+
+
+```{r include = FALSE}
+#### Imperial College London ####
+
+icl_model <- grab_icl_model()
+
+fwrite(icl_model, paste0(data_path,"/icl_model.csv"))
+
+
+```
+
+
+```{r}
+ihme <-  grab_ihme()
+
+fwrite(ihme, paste0(data_path,"/ihme.csv"))
+
+```
+
