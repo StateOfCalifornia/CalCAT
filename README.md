@@ -1,3 +1,4 @@
+![](www/calcat_logo_wide.gif)
 # Introduction 
 Welcome to the California COVID Assessment Tool (CalCAT).  This repository contains an application written in Shiny and for use with any US state to assist in assessing the many different models available for understanding COVID-19 transmission and spread. It brings together several data sources that are publicly available, and can be supplemented with your own data to improve the assessment. 
 
