@@ -27,7 +27,7 @@ __A gift from California with love.__
 _“Together, all things are possible.”_
                 -- Cesar Chavez 
 
-
+### Resources
 - [Rstudio](https://rstudio.com/)
 - [Shiny](https://shiny.rstudio.com/)
 - [covid19.ca.gov](https://covid19.ca.gov/)
