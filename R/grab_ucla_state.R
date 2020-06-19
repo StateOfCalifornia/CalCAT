@@ -12,7 +12,7 @@ grab_ucla_state <- function(State = state_name){
       
     } else { 
       ucla_state <- rbindlist(ucla$Rt[place_holder])
-      ucla_state <- ucla_state %>% gather(date, Rt, 1:147)
+      ucla_state <- ucla_state %>% gather(date, Rt, 1:137)
       ucla_state$date <- as.Date(ucla_state$date, format = "%m/%d/%y")
       msg <- paste0("Successfully downloaded Rt data from UCLA for ", State, " on ", Sys.Date())
      
