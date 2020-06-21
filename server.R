@@ -38,7 +38,7 @@ server <- function(input, output, session) {
     
     fu <- filter(yu, !is.na(r_values_mean))
     
-    rt.rt.xts <- xts(rt_live[,3], rt_live$date)
+    rt.rt.xts <- xts(rt_live[,4], rt_live$date)
     
     can.rt.xts <- xts(can.state.observed[,8],can.state.observed$date)
     epifc.rt.xts <- xts(epi_forecast[which(epi_forecast$type == "nowcast"),4], 
@@ -100,21 +100,21 @@ server <- function(input, output, session) {
     rt.min <- as.numeric( apply(df[,c(2:5,7)], 1, function(i) min(i, na.rm = TRUE)) )
     rt.max <- as.numeric( apply(df[,c(2:5,7)], 1, function(i) max(i, na.rm = TRUE)) )
     
-    name.min <- switch(as.character(colnames(df)[match(apply(df[,c(2:5,7)], 1, function(i) min(i, na.rm = TRUE)),df)]),
-                       "mean" = "rt.live",
-                       "RtIndicator" = "COVIDActNow",
-                       "median" = "EpiForecasts",
-                       "r_values_mean" = "covid19-projections.com",
-                       "Rt" = "UCLA",
-                       "mean_rt" = "ICL")
-                                       
-    name.max<- switch(as.character(colnames(df)[match(apply(df[,c(2:5,7)], 1, function(i) max(i, na.rm = TRUE)),df)]),
-                      "mean" = "rt.live",
-                      "RtIndicator" = "COVIDActNow",
-                      "median" = "EpiForecasts",
-                      "r_values_mean" = "covid19-projections.com",
-                      "Rt" = "UCLA",
-                      "mean_rt" = "ICL")
+     name.min <- switch(as.character(colnames(df)[match(apply(df[,c(2:5,7)], 1, function(i) min(i, na.rm = TRUE)),df)]),
+                         "rt.rt.xts" = "rt.live",
+                         "can.rt.xts" = "COVIDActNow",
+                         "epifc.rt.xts" = "EpiForecasts",
+                         "yu.xts" = "covid19-projections.com",
+                         "ucla.rt.xts" = "UCLA",
+                         "icl.rt.xts" = "ICL")
+        
+        name.max<- switch(as.character(colnames(df)[match(apply(df[,c(2:5,7)], 1, function(i) max(i, na.rm = TRUE)),df)]),
+                           "rt.rt.xts" = "rt.live",
+                           "can.rt.xts" = "COVIDActNow",
+                           "epifc.rt.xts" = "EpiForecasts",
+                           "yu.xts" = "covid19-projections.com",
+                           "ucla.rt.xts" = "UCLA",
+                           "icl.rt.xts" = "ICL")
     
     tagList(valueBox( paste0( round(rt.min,digits = 2)," - ", round(rt.max,digits = 2)) , paste0(name.min," - ",name.max), color = "navy", width = 12) )
     
