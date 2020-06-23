@@ -212,7 +212,7 @@ fwrite(yu, paste0(data_path,"yuganggu.csv"))
 
 yu.cnty <- grab_ygg_county()
 
-fwrite(yu.cnty, paste0(data_path,"yuganggu_county.csv"))
+fwrite(yu.cnty, paste0(data_path,"ygg_county.csv"))
 
 
 ```
