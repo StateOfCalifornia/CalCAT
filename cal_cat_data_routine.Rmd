@@ -198,21 +198,21 @@ fwrite(ucla_state, paste0(data_path,"ucla_state.csv"))
 
 
 ```{r include = FALSE}
-### Yugang Gu Group ### 
+### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
 
-yu <- grab_ygg_state()
+ygg <- grab_ygg_state()
 
-fwrite(yu, paste0(data_path,"yuganggu.csv"))
+fwrite(ygg, paste0(data_path,"ygg.csv"))
 
 ```
 
 
 ```{r include = FALSE}
 
-yu.cnty <- grab_ygg_county()
+ygg.cnty <- grab_ygg_county()
 
-fwrite(yu.cnty, paste0(data_path,"ygg_county.csv"))
+fwrite(ygg.cnty, paste0(data_path,"ygg_county.csv"))
 
 
 ```
