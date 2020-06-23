@@ -26,10 +26,18 @@ ui <- navbarPage(
     position = "static-top",
     theme = shinytheme("cosmo"),
     windowTitle = "CalCAT - Open",
-    header = tagList( shinyWidgets::useShinydashboard() ),
+    header = tagList( shinyWidgets::useShinydashboard(),
+                      tags$head(
+                          tags$script("src" = "func.js"),
+                          ######## Google Analytics Script Start ###############
+                          HTML(
+                              "<script async src='https://www.googletagmanager.com/gtag/js?id=UA-170240821-2'></script>"
+                          ),
+                          includeScript("g-analytics.js"))
+    ),
     
+######## Google Analytics Script End ###############
 
-   
 #### Landing Page ####
     tabPanel("Introduction", 
              fluidPage(
