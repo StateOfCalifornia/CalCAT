@@ -99,9 +99,9 @@ epi_forecast <- fread(paste0(data_path,"/epi_forecast.csv")) %>% mutate(date = a
 
 icl <- fread(paste0(data_path,"/icl_rt.csv")) %>% mutate(date = as.Date(date))
 
-### Yugang Gu Group ### 
+### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-yu <- fread(paste0(data_path,"/yuganggu.csv")) %>% mutate(date = as.Date(date)) 
+yu <- fread(paste0(data_path,"/ygg.csv")) %>% mutate(date = as.Date(date)) 
 
 ### IHME Proj. ###
 
