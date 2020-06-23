@@ -125,11 +125,9 @@ mit <- fread(paste0(data_path,"/mit.csv")) %>% mutate(date = as.Date(Day))
 
 ucla_state <- fread(paste0(data_path, "/ucla_state.csv")) %>% mutate(date = as.Date(date)) 
 
-### YU Group ### 
-# This is really GU group
-
+### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-yu.cnty <- fread(paste0(data_path, "yuganggu_county.csv")) %>% mutate(date = as.Date(date))
+yu.cnty <- fread(paste0(data_path, "ygg_county.csv")) %>% mutate(date = as.Date(date))
 
 ####
 #### Scenarios ####
