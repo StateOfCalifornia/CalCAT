@@ -111,7 +111,8 @@ ui <- navbarPage(
                              h4(paste0("Alpha Version | Released ",date_updated)),
                              #h4("EXPIRES: April 10, 2020"),
                              HTML("<h5>CONTACT: YOUR CONTACT INFO HERE</h5>"),
-                             HTML("<h5><a href='https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx' target='_blank'>CalCAT</a>  |  <a href='https://www.cdc.gov/coronavirus/2019-ncov/index.html' target='_blank'>CDC COVID-19 Page</a></h5>")
+                             HTML("<h5><a href='https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx' target='_blank'>CalCAT</a>  |  <a href='https://www.cdc.gov/coronavirus/2019-ncov/index.html' target='_blank'>CDC COVID-19 Page</a></h5>"),
+                             HTML("<h6>Icons provided by the nounproject.com: <a href='https://thenounproject.com/browse/?i=2683859' target='_blank'>Magnify</a> | <a href='https://thenounproject.com/browse/?i=772325' target='_blank'>Binoculars</a> | <a href='https://thenounproject.com/browse/?i=1630136' target='_blank'>Telescope</a>")
                      ),
                      column(4,
                             img(src = 'calcat_logo.gif', align = "right"),
