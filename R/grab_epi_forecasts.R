@@ -1,6 +1,7 @@
 grab_epi_forecasts <- function(State = state_name){
 
-  url <-"https://github.com/epiforecasts/covid-regional/raw/ada5b4ec0a5e786712c630708aaf85de663e2dde/united-states/regional-summary/rt.csv"
+  url <-"https://raw.githubusercontent.com/epiforecasts/covid-regional/master/united-states/regional-summary/rt.csv"
+
   
   if ( as.character(url_file_exists(url)[1]) == "TRUE" ) {
     epi_forecast <- read.csv(url, stringsAsFactors = FALSE) %>% filter(region == State) %>% mutate(date = as.Date(date))
