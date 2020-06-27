@@ -4,6 +4,7 @@
 ###################### -- Cesar Chavez ###########
 ##################################################
 
+# Copyright 2020, State of California, Department of Public Health
 
 library(shinythemes)
 library(shinydashboard)
@@ -101,7 +102,7 @@ icl <- fread(paste0(data_path,"/icl_rt.csv")) %>% mutate(date = as.Date(date))
 
 ### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-yu <- fread(paste0(data_path,"/ygg.csv")) %>% mutate(date = as.Date(date)) 
+gu <- fread(paste0(data_path,"/ygg.csv")) %>% mutate(date = as.Date(date)) 
 
 ### IHME Proj. ###
 
@@ -127,7 +128,7 @@ ucla_state <- fread(paste0(data_path, "/ucla_state.csv")) %>% mutate(date = as.D
 
 ### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-yu.cnty <- fread(paste0(data_path, "ygg_county.csv")) %>% mutate(date = as.Date(date))
+gu.cnty <- fread(paste0(data_path, "ygg_county.csv")) %>% mutate(date = as.Date(date))
 
 ####
 #### Scenarios ####

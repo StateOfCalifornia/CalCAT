@@ -1,4 +1,5 @@
 # Developed by California COVID Modeling Team
+# Copyright 2020, State of California, Department of Public Health
 #
 # John Pugliese, PhD.
 # California Department of Public Health
@@ -36,19 +37,19 @@ server <- function(input, output, session) {
     icl_rt <- icl_model %>% select(date, mean_time_varying_reproduction_number_R.t.) %>% rename(mean_rt = mean_time_varying_reproduction_number_R.t.) 
     icl_rt <- rbind(icl_rt, icl_rt_f)
     
-    fu <- filter(yu, !is.na(r_values_mean))
+    fu <- filter(gu, !is.na(r_values_mean))
     
     rt.rt.xts <- xts(rt_live[,4], rt_live$date)
     
     can.rt.xts <- xts(can.state.observed[,8],can.state.observed$date)
     epifc.rt.xts <- xts(epi_forecast[which(epi_forecast$type == "nowcast"),4], 
                         epi_forecast[which(epi_forecast$type == "nowcast"),]$date)
-    yu.xts <- xts(fu[,19],fu$date)
+    gu.xts <- xts(fu[,19],fu$date)
     ucla.rt.xts <- xts(ucla_state[,2],ucla_state$date)
     ucla.rt.xts <- ucla.rt.xts[paste0("/",Sys.Date()-1)]
     icl.rt.xts <- xts(icl_rt[,2], icl_rt$date) 
     
-    df <- merge(rt.rt.xts, can.rt.xts,epifc.rt.xts, yu.xts, ucla.rt.xts, icl.rt.xts)
+    df <- merge(rt.rt.xts, can.rt.xts,epifc.rt.xts, gu.xts, ucla.rt.xts, icl.rt.xts)
     
     df$mean.rt <- rowMeans(df[,c(1:4,6)], na.rm = TRUE)
     df[is.nan(as.numeric(df))] <- NA_character_
@@ -104,7 +105,7 @@ server <- function(input, output, session) {
                          "rt.rt.xts" = "rt.live",
                          "can.rt.xts" = "COVIDActNow",
                          "epifc.rt.xts" = "EpiForecasts",
-                         "yu.xts" = "covid19-projections.com",
+                         "gu.xts" = "covid19-projections.com",
                          "ucla.rt.xts" = "UCLA",
                          "icl.rt.xts" = "ICL")
         
@@ -112,7 +113,7 @@ server <- function(input, output, session) {
                            "rt.rt.xts" = "rt.live",
                            "can.rt.xts" = "COVIDActNow",
                            "epifc.rt.xts" = "EpiForecasts",
-                           "yu.xts" = "covid19-projections.com",
+                           "gu.xts" = "covid19-projections.com",
                            "ucla.rt.xts" = "UCLA",
                            "icl.rt.xts" = "ICL")
     
@@ -288,9 +289,9 @@ server <- function(input, output, session) {
     progress$inc(1/4)
     
     df <- xts(cnty.rt[,-1],cnty.rt$date)
-    if (c %in% unique(yu.cnty$subregion)   ) { cnty.yu <- yu.cnty %>% filter(subregion == c) %>% select(date, r_values_mean) 
-    yu.xts <- xts(cnty.yu[,-1],cnty.yu$date)
-    df <- merge(df,yu.xts)
+    if (c %in% unique(gu.cnty$subregion)   ) { cnty.gu <- gu.cnty %>% filter(subregion == c) %>% select(date, r_values_mean) 
+    gu.xts <- xts(cnty.gu[,-1],cnty.gu$date)
+    df <- merge(df,gu.xts)
     }
     
     # if (c %in% unique(ucla_cnty_rt$county) ) { cnty.ucla <- ucla_cnty_rt %>% filter(county == c) %>% select(date, Rt)       
@@ -328,8 +329,8 @@ server <- function(input, output, session) {
                                 "<br>",
                                 "COVIDActNow estimated Reff: ", round(df[[2]], digits=2) )
     )
-    if (c %in% unique(yu.cnty$subregion)   ) {p <- p %>% add_trace(x = df[[1]], 
-                                                                   y = df[["yu.xts"]], 
+    if (c %in% unique(gu.cnty$subregion)   ) {p <- p %>% add_trace(x = df[[1]], 
+                                                                   y = df[["gu.xts"]], 
                                                                    name = "covid19-projections.com",
                                                                    type = 'scatter',
                                                                    mode = "lines", 
@@ -337,7 +338,7 @@ server <- function(input, output, session) {
                                                                    hoverinfo = 'text',
                                                                    text = paste0(df[[1]],
                                                                                  "<br>",
-                                                                                 "covid19-projections.com estimated Reff: ", round(df[["yu.xts"]], digits=2) )
+                                                                                 "covid19-projections.com estimated Reff: ", round(df[["gu.xts"]], digits=2) )
     ) 
     }
     # if (c %in% unique(ucla_cnty_rt$county) ) {p <- p %>% add_trace(x = df[[1]], 
@@ -431,7 +432,7 @@ server <- function(input, output, session) {
       
       l <- c("Date","COVIDActNow")
       
-      if ( c %in% unique(yu.cnty$subregion) ) {  l <- c(l, c("covid19-projections.com")) }
+      if ( c %in% unique(gu.cnty$subregion) ) {  l <- c(l, c("covid19-projections.com")) }
       if ( c %in% unique(ucla_cnty_rt$county) ) {  l <- c(l, c("UCLA")) }
       if ( length(l) > 2 ) { l <- c(l, c("Mean Reff") ) }
       
@@ -460,7 +461,7 @@ server <- function(input, output, session) {
   #                     mutate(date = as.Date(date)) %>% 
   #                     rename(Rt = RtIndicator) %>%
   #                     as.data.frame()
-  #                 cnty.yu <- yu.cnty %>% filter(date <= Sys.Date()-1,
+  #                 cnty.gu <- gu.cnty %>% filter(date <= Sys.Date()-1,
   #                                               date >  Sys.Date()-8) %>% 
   #                                         select(subregion, date, r_values_mean) %>% 
   #                                         rename(county = subregion,
@@ -469,7 +470,7 @@ server <- function(input, output, session) {
   #                                                      date >  Sys.Date()-8) %>% 
   #                                               select(county, date, Rt) 
   #                 
-  #                 df <- rbind(cnty.can,cnty.yu,cnty.ucla) %>% 
+  #                 df <- rbind(cnty.can,cnty.gu,cnty.ucla) %>% 
   #                         arrange(county,date) %>%
   #                         group_by(county) %>%
   #                         summarise(Rt.m = mean(Rt, na.rm = T),

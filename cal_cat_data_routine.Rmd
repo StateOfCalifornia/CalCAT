@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 
+# Copyright 2020, State of California, Department of Public Health
+
 ###########################################################
 ######                                              #######
 ######    ########     #         ###         ###    #######
@@ -121,7 +123,7 @@ fwrite(icl_rt, paste0(data_path,"icl_rt.csv"))
 ```{r include = FALSE}
 ### LANL 
 
-### Cumualative Cases - Dtae will vary...so far, do not know how often these are updated.
+### Cumualative Cases - Date will vary...so far, do not know how often these are updated.
 # LANL <- read.csv("https://covid-19.bsvgateway.org/forecast/us/files/2020-05-03/confirmed/2020-05-03_confirmed_quantiles_us_website.csv") %>%
 #   filter(simple_state == "california") %>% select(dates,q.10,q.50,q.90, truth_confirmed)
 # 
