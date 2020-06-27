@@ -68,31 +68,19 @@ ui <- navbarPage(
                  fluidRow(
                          column(2, ""),
                          column(2,
-                             HTML("<div style='text-align:center'><h2>Nowcasts</h2> </div><br>")
-                         ),
-                         column(1, ""),
-                         column(2,
-                             HTML("<div style='text-align:center'><h2>Forecasts</h2> </div><br>")
-                         ),
-                         column(1, ""),
-                         column(2,
-                             HTML("<div style='text-align:center'><h2>Scenarios</h2> </div><br>")
-                         ),
-                         column(2, "")
-                 ), #End of fluidRow
-                 fluidRow(
-                         column(2, ""),
-                         column(2,
+                             HTML("<div style='text-align:center'><h2>Nowcasts</h2> </div><br>"),
                              img(id = "nowcast_img", src = 'nowcast_icon.jpg', align = "center", width = '100%', style="cursor:pointer;", alt = "Nowcasts"),
                              HTML("<hr><center>How fast is COVID-19 spreading right now? </center>")
                          ),
                          column(1, ""),
                          column(2,
+                             HTML("<div style='text-align:center'><h2>Forecasts</h2> </div><br>"),
                              img(id = "forecast_img", src = 'forecast_icon.jpg', align = "center", width = '100%', style="cursor:pointer;", alt = "Forecasts"),
                              HTML("<hr><center>What can we expect in the next 2-4 weeks?</center>")
                          ),
                          column(1, ""),
                          column(2,
+                             HTML("<div style='text-align:center'><h2>Scenarios</h2> </div><br>"),
                              img(id = "epimodel_img", src = 'scenario_icon.jpg', align = "center", width = '100%', style="cursor:pointer;", alt = "Scenarios"),
                              HTML("<hr><center>What are the long-term impacts under different scenarios?</center>")
                          ),
