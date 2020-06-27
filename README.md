@@ -28,6 +28,5 @@ _“Together, all things are possible.”_
                 -- Cesar Chavez 
 
 ### Resources
-- [Rstudio](https://rstudio.com/)
-- [Shiny](https://shiny.rstudio.com/)
+- [CalCAT California Version](http://calcat.covid19.ca.gov)
 - [covid19.ca.gov](https://covid19.ca.gov/)
