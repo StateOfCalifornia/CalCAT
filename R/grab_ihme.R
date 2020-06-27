@@ -10,7 +10,7 @@ grab_ihme <- function(State = state_name){
       download.file(url,temp)
       unzip(zipfile = temp, exdir = temp2)
       folder <- list.files(temp2)
-      IHME <- fread(file.path(temp2, paste0(folder,"/Hospitalization_all_locs.csv") ))
+      IHME <- fread(file.path(temp2, paste0(folder,"/Reference_hospitalization_all_locs.csv") ))
       unlink(c(temp, temp2))
       msg <- paste0("File was updated; new projections for ",folder,". Current files:")
       
