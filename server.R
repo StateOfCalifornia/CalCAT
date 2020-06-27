@@ -1,4 +1,5 @@
 # Developed by California COVID Modeling Team
+# Copyright 2020, State of California, Department of Public Health
 #
 # John Pugliese, PhD.
 # California Department of Public Health

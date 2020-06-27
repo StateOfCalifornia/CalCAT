@@ -4,6 +4,7 @@
 ###################### -- Cesar Chavez ###########
 ##################################################
 
+# Copyright 2020, State of California, Department of Public Health
 
 library(shinythemes)
 library(shinydashboard)
