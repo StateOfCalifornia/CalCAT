@@ -289,9 +289,10 @@ server <- function(input, output, session) {
     progress$inc(1/4)
     
     df <- xts(cnty.rt[,-1],cnty.rt$date)
-    if (c %in% unique(gu.cnty$subregion)   ) { cnty.gu <- gu.cnty %>% filter(subregion == c) %>% select(date, r_values_mean) 
-    gu.xts <- xts(cnty.gu[,-1],cnty.gu$date)
-    df <- merge(df,gu.xts)
+    if( c %in% unique(gu.cnty$subregion)) { 
+      cnty.gu <- gu.cnty %>% filter(subregion == c) %>% select(date, r_values_mean) 
+      gu.xts <- xts(cnty.gu[,-1],cnty.gu$date)
+      df <- merge(df,gu.xts)
     }
     
     # if (c %in% unique(ucla_cnty_rt$county) ) { cnty.ucla <- ucla_cnty_rt %>% filter(county == c) %>% select(date, Rt)       
@@ -597,7 +598,7 @@ server <- function(input, output, session) {
     
     df <- as.data.table(df) %>% as.data.frame()
     
-    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dash")
+    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dot")
     df$type <- ifelse(!is.na(df$covid.xts), "Est.", "Proj.")
     return(df)
     
@@ -806,7 +807,7 @@ server <- function(input, output, session) {
     
     df <- as.data.table(df) %>% as.data.frame()
     
-    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dash")
+    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dot")
     return(df)
     
   })
@@ -1071,9 +1072,8 @@ server <- function(input, output, session) {
     cnty <- names(canfipslist[match(fips,canfipslist)])
     
     #Used to filter model estimates that occur prior to actuals
-    min_death <- min(covid$Most.Recent.Date)
-    
     death <- covid %>% select(Most.Recent.Date,Total.Count.Deaths) %>% filter(covid$County.Name == cnty) %>% as.data.frame()
+    min_death <- min(death$Most.Recent.Date)
     
     progress$inc(3/4)
     # out <- lapply(fips[1], function(x) get_can_cnty(x))
@@ -1083,21 +1083,27 @@ server <- function(input, output, session) {
     can.death <- out %>% select(date,cumulativeDeaths) %>% 
       filter(min_death <= date & date <= Sys.Date() + 30) %>% 
       rename(CovidActNow = cumulativeDeaths) %>% as.data.frame()
+    
+    yu.death <- filter( yu, CountyName==cnty) %>% select(date,predicted_deaths) %>% 
+      filter(min_death <= date & date <= Sys.Date() + 30) %>% 
+      rename(YuGroup = predicted_deaths) %>% as.data.frame()
+    
     progress$inc(1/4)
     
-    covid.xts <- xts(death[,-1],death$Most.Recent.Date)
+    covid.xts    <- xts(death[,-1],death$Most.Recent.Date)
     can.proj.xts <- xts(can.death[,-1],can.death$date)
+    yu.proj.xts  <- xts(yu.death[,-1],yu.death$date)
     #Add additional forecasts as xts object
     
-    df <- merge(covid.xts,can.proj.xts)
+    df <- merge(covid.xts,can.proj.xts,yu.proj.xts)
     
     #Estimate a mean forecast here
-    df$mean.proj <- rowMeans(df[,2], na.rm = TRUE)
+    df$mean.proj <- rowMeans(df[,2:3], na.rm = TRUE)
     df$mean.proj <- ifelse(!is.na(df$covid.xts), NA, df$mean.proj)
     
     df <- as.data.table(df) %>% as.data.frame()
     
-    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dash")
+    df$period <- ifelse(!is.na(df$covid.xts), "solid", "dot")
     df$type <- ifelse(!is.na(df$covid.xts), "Est.", "Proj.")
     
     return(df)
@@ -1126,7 +1132,7 @@ server <- function(input, output, session) {
   #Graph
   output$county.death.plot <- renderPlotly({
     
-    df <- county.deaths()  
+    df <- county.deaths()
     
     cdt <- max(df[which(!is.na(df$covid.xts)),1])
     
@@ -1166,6 +1172,20 @@ server <- function(input, output, session) {
                               "COVIDActNow Estimate: ", format(df[[3]], big.mark = ",") )
                 
       ) %>%
+      add_trace(x = df[[1]], 
+                y = df[[4]], 
+                name = ~I(paste0("Berkeley Yu - ",df$type)),
+                 type = 'scatter',
+                 mode = "lines", 
+                 inherit = TRUE,
+                 line = list(color="blue"),
+                 linetype = ~I(period),
+                 hoverinfo = 'text',
+                 text = paste0(df[[1]],
+                             "<br>",
+                             "Berkeley Estimate: ", format(df[[4]], big.mark = ",") )
+               
+     ) %>%
       #Example trace for additional forecast
       # add_trace(x = df[[1]], 
       #           y = df[[4]], 
@@ -1182,7 +1202,7 @@ server <- function(input, output, session) {
       #           
       # ) %>%
       add_trace(x = df[[1]], 
-                y = df[[4]], 
+                y = df[[5]], 
                 name = "Mean Proj.",
                 type = 'scatter',
                 mode = "lines", 
@@ -1225,6 +1245,7 @@ server <- function(input, output, session) {
       l <- c("Date","Total Deaths")
       
       if ( "can.proj.xts" %in% names(county.deaths()) ) {  l <- c(l, c("COVIDActNow")) }
+      if ( "yu.proj.xts" %in% names(county.deaths()) ) {  l <- c(l, c("Berkeley")) }
       #Add lines for additional sources of forecasts
       #if ( "ucla.proj.xts" %in% names(county.deaths()) ) {  l <- c(l, c("UCLA")) }
       if ( length(l) > 2 ) { l <- c(l, c("Mean") ) }
