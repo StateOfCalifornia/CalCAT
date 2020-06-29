@@ -1,4 +1,20 @@
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[jsonlite]{toJSON, fromJSON}}
+#' @rdname grab_mobs
+#' @export 
+#' @importFrom jsonlite fromJSON
 grab_mobs <- function(State = state_name){
   url <- paste0("https://data-tracking-api-dot-mobs-2019-ncov-web.appspot.com/data?state=",State,"&frequency=daily")
   

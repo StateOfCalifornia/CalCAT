@@ -1,4 +1,17 @@
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname grab_ihme
+#' @export 
 grab_ihme <- function(State = state_name){ 
   
   url <- "https://ihmecovid19storage.blob.core.windows.net/latest/ihme-covid19.zip"

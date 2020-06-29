@@ -1,3 +1,17 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @param type PARAM_DESCRIPTION, Default: 'integer'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_state_fips
+#' @export 
 get_state_fips <- function(State = state_name, type = "integer"){
   states <- data.table(state = c("Alabama",
                                  "Alaska",

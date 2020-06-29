@@ -1,3 +1,16 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname grab_epi_forecasts
+#' @export 
 grab_epi_forecasts <- function(State = state_name){
 
   url <-"https://raw.githubusercontent.com/epiforecasts/covid-regional/master/united-states/regional-summary/rt.csv"

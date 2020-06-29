@@ -1,3 +1,21 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[httr]{GET}},\code{\link[httr]{stop_for_status}}
+#'  \code{\link[data.table]{rbindlist}},\code{\link[data.table]{dcast.data.table}}
+#' @rdname grab_reich_lab_deaths
+#' @export 
+#' @importFrom httr GET stop_for_status
+#' @importFrom data.table rbindlist dcast.data.table
 grab_reich_lab_deaths <- function(){
 
     library(httr)
