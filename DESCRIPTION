@@ -8,7 +8,7 @@ Authors@R:
          email = "your@email.com")
 Description: What the package does (one paragraph).
 License: What license is it under?
-  Imports: 
+Imports: 
   config,
   golem,
   shiny
