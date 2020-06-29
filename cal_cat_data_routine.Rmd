@@ -39,6 +39,7 @@ library(knitr)
 library(rmarkdown)
 library(RJDBC)
 library(kableExtra)
+library(googlesheets4)
 
 sapply(list.files("R", full.names = T), source)
 
@@ -238,3 +239,9 @@ fwrite(ihme, paste0(data_path,"/ihme.csv"))
 
 ```
 
+```{r}
+yugroup <-  grab_yugroup()
+
+fwrite(yugroup, paste0(data_path,"/yugroup.csv"))
+
+```

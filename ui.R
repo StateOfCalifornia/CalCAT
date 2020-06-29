@@ -495,6 +495,11 @@ ui <- navbarPage(
                      HTML("<a href = 'https://reichlab.io/covid19-forecast-hub/' target='_blank'>Reich Lab</a><p>The Reich Lab at the UMass-Amherst is an Influenza Forecasting Center of Excellence and the source for the official <a href= 'https://www.cdc.gov/coronavirus/2019-ncov/covid-data/forecasting-us.html'  target='_blank'>CDC COVID-19 Forecasting page</a>. Taking other forecasts as the input, this is arithmetic average across eligible models of cumulative deaths forecasts.  Forecasts are weekly out to 4 weeks, at the state and national level. "),
                      p(),
                      HTML("<a href = 'https://github.com/reichlab/covid19-forecast-hub/tree/master/data-processed' target='_blank'>raw data</a>"),
+                     hr(),
+                     h4("UC Berkeley Yu Group"),
+                     HTML("<a href = 'https://covidseverity.com/' target='_blank'>covidseverity.com</a><p>A statistical extrapolation which forecasts deaths one week in advance by county.  The extrapolation is calculated from an ensemble of linear and exponential predictors, some of which pool data across counties or use demographic data."),
+                     p(),
+                     HTML("<a href = 'https://docs.google.com/spreadsheets/d/1ZSG7o4cV-G0Zg3wlgJpB2Zvg-vEN1i_76n2I-djL0Dk' target='_blank'>raw data</a>"),
                      hr()
                  ),
                  column(4,
