@@ -2,10 +2,12 @@ Package: CalCAT
 Title: A tool for understanding COVID-19 by the State of California
 Version: 0.0.0.1000
 Authors@R: 
-  person(given = "firstname",
-         family = "lastname",
-         role = c("aut", "cre"),
-         email = "your@email.com")
+  person(given = "John",
+         family = "Pugliese",
+         role = c("aut", "cre"))
+  person(given = "Jason",
+         family = "Vargo",
+         role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: What license is it under?
 Imports: 
