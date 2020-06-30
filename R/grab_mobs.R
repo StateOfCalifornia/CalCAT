@@ -1,5 +1,8 @@
 
 grab_mobs <- function(State = state_name){
+  
+  State <- ifelse(State %in% c("New York","Washington"), paste0(State, " State"), State)
+  
   url <- paste0("https://data-tracking-api-dot-mobs-2019-ncov-web.appspot.com/data?state=",State,"&frequency=daily")
   
   
