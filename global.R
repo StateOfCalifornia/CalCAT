@@ -1,6 +1,6 @@
 ##################################################
 ##### A gift from California with love. ##########
-#### “Together, all things are possible.”   ######
+####   Together, all things are possible.   ######
 ###################### -- Cesar Chavez ###########
 ##################################################
 
@@ -38,7 +38,7 @@ library(jsonlite)
 
 # sapply(list.files("R/", full.names = T), source)
 sapply(list.files("R", full.names = T), source)
-state_name <- "Georgia"
+state_name <- "California"
 
 counties <- get_counties()
 state_abbrv <- get_state_abbrv(State = state_name)
