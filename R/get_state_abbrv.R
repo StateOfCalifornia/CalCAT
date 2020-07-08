@@ -1,109 +1,29 @@
 get_state_abbrv <- function(State = state_name){
-  states <- data.frame(state = c("Alabama",
-                                 "Alaska",
-                                 "Arizona",
-                                 "Arkansas",
-                                 "California",
-                                 "Colorado",
-                                 "Connecticut",
-                                 "Delaware",
-                                 "District of Columbia",
-                                 "Florida",
-                                 "Georgia",
-                                 "Hawaii",
-                                 "Idaho",
-                                 "Illinois",
-                                 "Indiana",
-                                 "Iowa",
-                                 "Kansas",
-                                 "Kentucky",
-                                 "Louisiana",
-                                 "Maine",
-                                 "Maryland",
-                                 "Massachusetts",
-                                 "Michigan",
-                                 "Minnesota",
-                                 "Mississippi",
-                                 "Missouri",
-                                 "Montana",
-                                 "Nebraska",
-                                 "Nevada",
-                                 "New Hampshire", 
-                                 "New Jersey",
-                                 "New Mexico",
-                                 "New York",
-                                 "North Carolina",
-                                 "North Dakota",
-                                 "Ohio",
-                                 "Oklahoma", 
-                                 "Oregon",
-                                 "Pennsylvania",
-                                 "Rhode Island",
-                                 "South Carolina",
-                                 "South Dakota",
-                                 "Tennessee",
-                                 "Texas",
-                                 "Utah",
-                                 "Vermont",
-                                 "Virginia",
-                                 "Washington", 
-                                 "West Virginia",
-                                 "Wisconsin",
-                                 "Wyoming"), 
-                    abbrv = c("AL",
-                              "AK",
-                              "AZ",
-                              "AR",
-                              "CA",
-                              "CO",
-                              "CT",
-                              "DE",
-                              "DC",
-                              "FL",
-                              "GA",
-                              "HI",
-                              "ID",
-                              "IL",
-                              "IN",
-                              "IA",
-                              "KS",
-                              "KY",
-                              "LA",
-                              "ME",
-                              "MD",
-                              "MA",
-                              "MI",
-                              "MN",
-                              "MS",
-                              "MO",
-                              "MT",
-                              "NE",
-                              "NV",
-                              "NH", 
-                              "NJ",
-                              "NM",
-                              "NY",
-                              "NC",
-                              "ND",
-                              "OH",
-                              "OK", 
-                              "OR",
-                              "PA",
-                              "RI",
-                              "SC",
-                              "SD",
-                              "TN",
-                              "TX",
-                              "UT",
-                              "VT",
-                              "VA",
-                              "WA", 
-                              "WV",
-                              "WI",
-                              "WY"))
   
- 
+  if (!inherits(State, "character")) {
+    stop("get_state_abbrv() State should be a character vector")
+  }
+
+  # Convert all to lowercase to avoid mismatch due 
+  # to capitalization
+  state.name <- tolower(state.name)
+  State <- tolower(State)
+
+  # Find which index the State matches to 
+  # state.name are USA state names built into R
+  index <- which(state.name %in% State)
+  if (!inherits(index, "integer")) {
+    stop("expected integer index for state match")
+  }
+
+  # Use the index to select the state abbreviation
+  # state.abb are USA state abbreviations built into R
+  selected_abbrv <- state.abb[index]
   
-  return(as.character(states$abbrv[which(states$state == State)]))
+  # Check that return value is character
+  if (!inherits(selected_abbrv, "character")) {
+    stop("get_state_abbrv() should return character")
+  }
   
+  return(selected_abbrv)
 }
