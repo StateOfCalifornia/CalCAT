@@ -19,7 +19,7 @@
 
 
 ui <- navbarPage(
-        
+
     title = paste0(state_name, " COVID Assessment Tool - Open Source"),
     id = "navbar",
     inverse=TRUE,
@@ -36,11 +36,11 @@ ui <- navbarPage(
                           ),
                           includeScript("g-analytics.js"))
     ),
-    
+
 ######## Google Analytics Script End ###############
 
 #### Landing Page ####
-    tabPanel("Introduction", 
+    tabPanel("Introduction",
              fluidPage(
                        tags$head(
                           tags$style(
@@ -87,16 +87,16 @@ ui <- navbarPage(
                          ),
                          column(2, "")
                  ), #End of fluidRow
-                 
+
                  # FOOTER #
-                 fluidRow(br(), 
-                         br(), 
+                 fluidRow(br(),
+                         br(),
                          hr()
                 ), #End of fluidRow
                 fluidRow(
                       column(2,""),
                       column(4,
-                            
+
                              h4(paste0("Alpha Version | Released ",date_updated)),
                              #h4("EXPIRES: April 10, 2020"),
                              HTML("<h5>CONTACT: YOUR CONTACT INFO HERE</h5>"),
@@ -106,7 +106,7 @@ ui <- navbarPage(
                      column(4,
                             img(src = 'calcat_logo.gif', align = "right"),
                             br()
-                           
+
                      ),
                      column(2,"")
                 ) #End of fluidRow
@@ -118,7 +118,7 @@ ui <- navbarPage(
               fluidPage(
                  h2(paste0("Current R-effective in ",state_name)),
                  h4("The effective reproduction number (R-effective) is the average number of people each infected person will pass the virus onto and represents the rate at which COVID-19 is spreading."),
-                 hr(), 
+                 hr(),
                  fluidRow(
                      column(3,
                          h4("Latest Average R-effective is: "),
@@ -127,34 +127,34 @@ ui <- navbarPage(
                          h4("Low/High Estimates of R-effective:"),
                             fluidRow(uiOutput("hilo_rt.box", width = 12)),
                          downloadButton("dlRt", "Download R-eff Values")
-                     ), 
-                     column(9, 
+                     ),
+                     column(9,
                             h4("Statewide Estimates of R-effective"),
-                            h6("The effective reproductive number (R) is the average number of secondary infected persons resulting from a infected person. If R>1, the number of infected persons will increase. If R<1, the number of infected persons will decrease.  At R=1, the number of infected persons remains constant." ), 
+                            h6("The effective reproductive number (R) is the average number of secondary infected persons resulting from a infected person. If R>1, the number of infected persons will increase. If R<1, the number of infected persons will decrease.  At R=1, the number of infected persons remains constant." ),
                             fluidRow(plotlyOutput("rt.plot"))
                      )
                  ),# End fluidRow
                  hr(),
                  fluidRow(
-                     column(6, 
-                            div(style="display: inline-block;vertical-align:top; width: 200px;", 
+                     column(6,
+                            div(style="display: inline-block;vertical-align:top; width: 200px;",
                                 pickerInput(inputId = "select.county.rt",
-                                                label = NULL, 
+                                                label = NULL,
                                                 choices = canfipslist,
                                                 selected = "6001",
                                                 #options = list(
-                                                #    `actions-box` = TRUE), 
+                                                #    `actions-box` = TRUE),
                                                 multiple = FALSE
                                                 )
                             ),
-                            div(style="display: inline-block;vertical-align:top; width: 200px;", 
+                            div(style="display: inline-block;vertical-align:top; width: 200px;",
                                     downloadButton("dlRt.indv.cnty", "Download County R-eff Trend")
                             ),
                             h4("R-effective Trends by County"),
                             h6("Select a county to see how R-effective has changed over time"),
                             plotlyOutput("county.rt.plot")
                         ),
-                     
+
                      column(6,
                             downloadButton("dlRt.cnty", "Download R-eff for Counties"),
                             h4(paste0("Latest R-effective in ",state_name," Counties")),
@@ -162,16 +162,16 @@ ui <- navbarPage(
                             plotlyOutput("rt.dot.plot")
                         )
                  ), # End fluidRow
-                 
+
                  # FOOTER #
-                 fluidRow(br(), 
-                          br(), 
+                 fluidRow(br(),
+                          br(),
                           hr()
                  ), #End of fluidRow
                  fluidRow(
                      column(2,""),
                      column(4,
-                            
+
                             h4(paste0("Alpha Version | Released ",date_updated)),
                             #h4("EXPIRES: April 10, 2020"),
                             HTML("<h5>CONTACT: YOUR CONTACT INFO HERE</h5>"),
@@ -180,7 +180,7 @@ ui <- navbarPage(
                      column(4,
                             img(src = 'calcat_logo.gif', align = "right"),
                             br()
-                            
+
                      ),
                      column(2,"")
                  ) #End of fluidRow
@@ -207,8 +207,8 @@ ui <- navbarPage(
                                       ),
                                       column(9,
                                             h4("Statewide Hospitalization Forecasts"),
-                                            h6(paste0("The black box (left) represents the current number of hospitalized COVID patients in ", state_name,". The blue box 
-                                                represents the average forecasted number of hospitalized patients at the 30 day mark based on models for ",state_name,"." )), 
+                                            h6(paste0("The black box (left) represents the current number of hospitalized COVID patients in ", state_name,". The blue box
+                                                represents the average forecasted number of hospitalized patients at the 30 day mark based on models for ",state_name,"." )),
                                             plotlyOutput("hosp.proj.plot", height = "100%")
                                       )
 
@@ -220,7 +220,7 @@ ui <- navbarPage(
                           column(3,
                                   pickerInput(
                                       inputId = "select.county.hosp",
-                                      label = NULL, 
+                                      label = NULL,
                                       choices = canfipslist,
                                       selected = "6001",
                                       multiple = FALSE
@@ -248,11 +248,11 @@ ui <- navbarPage(
                           ),
                           column(9,
                                  h4("Statewide Total Death Forecast"),
-                                 h6(paste0("The black box (left) represents the current number of total COVID deaths in",state_name,". The blue box 
-                                                represents the average forecasted number of total deaths at the 30 day mark based on models for",state_name,"." )), 
+                                 h6(paste0("The black box (left) represents the current number of total COVID deaths in",state_name,". The blue box
+                                                represents the average forecasted number of total deaths at the 30 day mark based on models for",state_name,"." )),
                                  plotlyOutput("cdeath.proj.plot", height = "100%")
                           )
-                          
+
                       ), #End of fluidRow
                       hr(),
                       h4(paste0(state_name," County Death Forecasts")),
@@ -261,7 +261,7 @@ ui <- navbarPage(
                           column(3,
                                  pickerInput(
                                      inputId = "select.county.death",
-                                     label = NULL, 
+                                     label = NULL,
                                      choices = canfipslist,
                                      selected = "6001",
                                      multiple = FALSE
@@ -276,16 +276,16 @@ ui <- navbarPage(
                                  plotlyOutput("county.death.plot")
                           )
                       ), #End of fluidRow
-                      
+
                       # FOOTER #
-                      fluidRow(br(), 
-                               br(), 
+                      fluidRow(br(),
+                               br(),
                                hr()
                       ), #End of fluidRow
                       fluidRow(
                           column(2,""),
                           column(4,
-                                 
+
                                  h4(paste0("Alpha Version | Released ",date_updated)),
                                  #h4("EXPIRES: April 10, 2020"),
                                  HTML("<h5>CONTACT: YOUR CONTACT INFO HERE</h5>"),
@@ -294,11 +294,11 @@ ui <- navbarPage(
                           column(4,
                                  img(src = 'calcat_logo.gif', align = "right"),
                                  br()
-                                 
+
                           ),
                           column(2,"")
                       ) #End of fluidRow
-                      
+
              ) #End of fluidPage
     ), #End of tabPanel Short-term forecasts
 
@@ -310,7 +310,7 @@ ui <- navbarPage(
                   h4("Long-term scenarios estimate the effect of various non-pharmaceutical interventions (NPIs)"),
                   hr(),
                   fluidRow(
-                      wellPanel( 
+                      wellPanel(
                           div(style="display: inline-block;vertical-align:top; width: 200px;",
                               selectInput(
                                   inputId = "county_ts",
@@ -318,7 +318,7 @@ ui <- navbarPage(
                                   choices = cnty.list,
                                   selected = state_name
                               )
-                              
+
                           ),
                           div(style="display: inline-block;vertical-align:top; width: 200px;",
                               selectInput("selected_crosswalk",
@@ -329,7 +329,7 @@ ui <- navbarPage(
                                           ),
                                           selected = 1)
                           ),
-                          
+
                           div(style="display: inline-block;vertical-align:top; width: 200px; padding: 20px;",
                               checkboxInput("actuals","Include Actuals?",TRUE)
                           ),
@@ -339,21 +339,14 @@ ui <- navbarPage(
                           HTML("<p><b>Note:</b> Detailed model scenario descriptions can be found below the graph or on the Technical Notes tab.</p>")
                       )
                   ),
-                  
+
                   tabsetPanel(
                       tabPanel("Interactive",
                                fluidRow(
                                    column(3,
                                           br(),
                                           uiOutput("physical.select"),
-                                          conditionalPanel(condition = "input.include_JHU_UKKC.includes('UK.Fixed.30_40') |
-                                                                        input.include_JHU_UKKC.includes('UK.Fixed.40_50') |
-                                                                        input.include_JHU_UKKC.includes('UK.Fixed.50_60') |
-                                                                        input.include_JHU_UKKC.includes('UK.Fixed.60_70') |
-                                                                        input.include_JHU_UKKC.includes('Continued_Lockdown') |
-                                                                        input.include_JHU_UKKC.includes('Slow.paced_Reopening') |
-                                                                        input.include_JHU_UKKC.includes('Moderate.paced_Reopening') |
-                                                                        input.include_JHU_UKKC.includes('Fast.paced_Reopening')",
+                                          conditionalPanel(condition = "true",
                                                            h5("Johns Hopkins Model Options:"),
                                                            radioGroupButtons(
                                                                inputId = "physical.mmd",
@@ -370,14 +363,14 @@ ui <- navbarPage(
                                                            switchInput("physical.iqr", label = "JHU IQRs", value = FALSE,
                                                                        onStatus = "success", offStatus = "danger",
                                                                        labelWidth = "150px",
-                                                                       inline = TRUE, size = 'normal', width = "auto") 
+                                                                       inline = TRUE, size = 'normal', width = "auto")
                                           ),
-                                          conditionalPanel(condition = paste0("input.include_JHU_UKKC.includes('IHME_sts') & input.county_ts == '",state_name,"'"),
+                                          conditionalPanel(condition = "true",
                                                            h5("IHME Model Options:"),
                                                            switchInput("IHME.iqr", label = "IHME Interval", value = FALSE,
                                                                        onStatus = "success", offStatus = "danger",
                                                                        labelWidth = "150px",
-                                                                       inline = TRUE, size = 'normal', width = "auto") 
+                                                                       inline = TRUE, size = 'normal', width = "auto")
                                           ),
                                           h5("Legend"),
                                           textOutput("legendDivID2"),
@@ -387,7 +380,7 @@ ui <- navbarPage(
                                    column(9,
                                           dygraphOutput("physical.graph", height = "450px"),
                                           h6("Note: Use slide to adjust date range; will also adjust date range of static plot.")
-                                          
+
                                    )
                                ), #End of fuidRow
                                fluidRow(
@@ -409,12 +402,12 @@ ui <- navbarPage(
                                column(2)
                       ) #End of tabPanel
                   ), #End of TabsetPanel
-                  
+
                   # FOOTER #
                   fluidRow(
                       column(2,""),
                       column(4,
-                             
+
                              h4(paste0("Alpha Version | Released ",date_updated)),
                              #h4("EXPIRES: April 10, 2020"),
                              HTML("<h5>CONTACT: YOUR CONTACT INFO HERE</h5>"),
@@ -423,11 +416,11 @@ ui <- navbarPage(
                       column(4,
                              img(src = 'calcat_logo.gif', align = "right"),
                              br()
-                             
+
                       ),
                       column(2,"")
                   ) #End of fluidRow
-                  
+
               ) #End of fluidPage
             ), # End tabPanel for Long-term Epi Models
 
@@ -469,7 +462,7 @@ ui <- navbarPage(
                         HTML("<a href = 'https://mrc-ide.github.io/covid19usa/#/download' target='_blank'>raw data</a>"),
                  ), # end Nowcasts Column
                  column(4,
-                        
+
                      h1("Forecasts"),
                      h4("Covid Act Now"),
                      HTML("<a href = 'https://blog.covidactnow.org/modeling-metrics-critical-to-reopen-safely/' target='_blank'>Covid Act Now</a><p>The CovidActNow model is a SEIR model with compartments for disease severity and medical intervention.  Each county and state is calibrated separately, and R-effective is inferred using observed data."),
@@ -509,24 +502,24 @@ ui <- navbarPage(
                         p(),
                         HTML("<a href = 'https://github.com/covid-projections/covid-data-model/blob/master/api/README.V1.md' target='_blank'>raw data</a>"),
                         hr(),
-                        
+
                         h4("Institute for Health Metrics and Evaluation"),
                         HTML("<a href = 'https://covid19.healthdata.org/united-states-of-america' target='_blank'>IHME</a><p>IHME is a multistage model, where the first stage fits an S-curve to historical daily deaths data, and the second stage is an SEIR compartment model.  The SEIR model's R-effective is calibrated using the output of the first stage, but it also incorporates temperature data, population density, local testing capacity, and changes in mobility data.  IHME provides projections of mortality, number of infections, and hospital utilization at the state and national level."),
                         p(),
                         HTML("<a href = 'https://ihmecovid19storage.blob.core.windows.net/latest/ihme-covid19.zip'>raw data</a>"),
                         hr()
                  )
-                ), #End of fluidRow 
-                
+                ), #End of fluidRow
+
                 # FOOTER #
-                fluidRow(br(), 
-                         br(), 
+                fluidRow(br(),
+                         br(),
                          hr()
                 ), #End of fluidRow
                 fluidRow(
                     column(2,""),
                     column(4,
-                           
+
                            h4(paste0("Alpha Version | Released ",date_updated)),
                            #h4("EXPIRES: April 10, 2020"),
                            HTML("<h5>CONTACT: <a href = 'mailto:covmodeling@cdph.cd.gov?subject=ModelDataBook'>covmodeling@cdph.ca.gov</a></h5>"),
@@ -535,7 +528,7 @@ ui <- navbarPage(
                     column(4,
                            img(src = 'calcat_logo.gif', align = "right"),
                            br()
-                           
+
                     ),
                     column(2,"")
                 ) #End of fluidRow
@@ -545,6 +538,6 @@ ui <- navbarPage(
 
                 tags$script(HTML(paste0("var header = $('.navbar> .container-fluid');
                        header.append('<div style=\"float:right;color:white\"><h5>Alpha Version | Released ",date_updated,"</h5></div>');
-                       console.log(header)")))  
+                       console.log(header)")))
 
 )
