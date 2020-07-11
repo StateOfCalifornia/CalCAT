@@ -29,7 +29,6 @@ ui <- navbarPage(
     windowTitle = "CalCAT - Open",
     header = tagList( shinyWidgets::useShinydashboard(),
                       tags$head(
-                          tags$script("src" = "func.js"),
                           ######## Google Analytics Script Start ###############
                           HTML(
                               "<script async src='https://www.googletagmanager.com/gtag/js?id=UA-170240821-2'></script>"
