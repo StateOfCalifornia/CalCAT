@@ -55,11 +55,6 @@ server <- function(input, output, session) {
             # names(icl.rt.xts) <- c("icl")
             # df <- merge(df, icl.rt.xts)
         }
-    
-    
-    
-    icl.rt.xts <- xts(icl_rt[,2], icl_rt$date) 
-    
     df <- merge(rt.rt.xts, can.rt.xts,epifc.rt.xts, gu.xts, ucla.rt.xts, icl.rt.xts)
     
     df$mean.rt <- rowMeans(df[,c(1:4,6)], na.rm = TRUE)
