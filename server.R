@@ -47,6 +47,17 @@ server <- function(input, output, session) {
     gu.xts <- xts(fu[,19],fu$date)
     ucla.rt.xts <- xts(ucla_state[,2],ucla_state$date)
     ucla.rt.xts <- ucla.rt.xts[paste0("/",Sys.Date()-1)]
+    if (  exists("icl") & exists('icl_model') ) { 
+            # icl_rt_f <- icl %>% select(date, constant_mobility_mean_time_varying_reproduction_number_R.t.) %>% rename(mean_rt = constant_mobility_mean_time_varying_reproduction_number_R.t.)
+            icl_rt <- icl_model %>% select(date, mean_time_varying_reproduction_number_R.t.) %>% rename(mean_rt = mean_time_varying_reproduction_number_R.t.) 
+            # icl_rt <- rbind(icl_rt, icl_rt_f)
+            icl.rt.xts <- xts(icl_rt[,2], icl_rt$date) 
+            # names(icl.rt.xts) <- c("icl")
+            # df <- merge(df, icl.rt.xts)
+        }
+    
+    
+    
     icl.rt.xts <- xts(icl_rt[,2], icl_rt$date) 
     
     df <- merge(rt.rt.xts, can.rt.xts,epifc.rt.xts, gu.xts, ucla.rt.xts, icl.rt.xts)
