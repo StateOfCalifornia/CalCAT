@@ -1,6 +1,6 @@
 ##################################################
 ##### A gift from California with love. ##########
-#### “Together, all things are possible.”   ######
+####   Together, all things are possible.   ######
 ###################### -- Cesar Chavez ###########
 ##################################################
 
@@ -38,7 +38,7 @@ library(jsonlite)
 
 # sapply(list.files("R/", full.names = T), source)
 sapply(list.files("R", full.names = T), source)
-state_name <- "Georgia"
+state_name <- "California"
 
 counties <- get_counties()
 state_abbrv <- get_state_abbrv(State = state_name)
@@ -128,7 +128,12 @@ ucla_state <- fread(paste0(data_path, "/ucla_state.csv")) %>% mutate(date = as.D
 
 ### Youyang Gu Group ### 
 # https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-gu.cnty <- fread(paste0(data_path, "ygg_county.csv")) %>% mutate(date = as.Date(date))
+gu.cnty <- fread(paste0(data_path, "/ygg_county.csv")) %>% mutate(date = as.Date(date))
+
+### UC Berkeley Yu Group ### 
+# https://docs.google.com/spreadsheets/d/1ZSG7o4cV-G0Zg3wlgJpB2Zvg-vEN1i_76n2I-djL0Dk
+yu <- fread( paste0(data_path, "/yugroup.csv")) %>% mutate(date = as.Date(date))
+
 
 ####
 #### Scenarios ####

@@ -25,7 +25,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(readr)
 library(stringr)
-library(pool)
 library(DBI)
 library(odbc)
 library(pool)
@@ -37,8 +36,9 @@ library(data.table)
 library(jsonlite)
 library(knitr)
 library(rmarkdown)
-library(RJDBC)
+# library(RJDBC)
 library(kableExtra)
+library(googlesheets4)
 
 sapply(list.files("R", full.names = T), source)
 
@@ -238,3 +238,9 @@ fwrite(ihme, paste0(data_path,"/ihme.csv"))
 
 ```
 
+```{r}
+yugroup <-  grab_yugroup()
+
+fwrite(yugroup, paste0(data_path,"/yugroup.csv"))
+
+```
