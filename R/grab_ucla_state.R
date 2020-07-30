@@ -1,3 +1,19 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[jsonlite]{toJSON, fromJSON}}
+#' @rdname grab_ucla_state
+#' @export 
+#' @importFrom jsonlite fromJSON
 grab_ucla_state <- function(State = state_name){
   url <-paste0("https://gist.githubusercontent.com/knowzou/ecacd65ab863979a9aea0f19a75252c3/raw/us_rt.json")
   

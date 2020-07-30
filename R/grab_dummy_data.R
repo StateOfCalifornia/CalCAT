@@ -5,6 +5,19 @@
 ##### Uses NYT data to approximate Hosp/ICU numbers     #####
 #############################################################
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param s PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname grab_dummy_data
+#' @export 
 grab_dummy_data <- function(s) {
   nyt_c <- read.csv("https://github.com/nytimes/covid-19-data/raw/master/us-counties.csv", stringsAsFactors = F) %>% 
     filter(state == s) %>%

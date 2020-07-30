@@ -1,4 +1,20 @@
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[jsonlite]{toJSON, fromJSON}}
+#' @rdname grab_mobs
+#' @export 
+#' @importFrom jsonlite fromJSON
 grab_mobs <- function(State = state_name){
   
   State <- ifelse(State %in% c("New York","Washington"), paste0(State, " State"), State)

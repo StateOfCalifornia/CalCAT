@@ -1,4 +1,17 @@
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname grab_icl_model
+#' @export 
 grab_icl_model <- function(State = state_name){
   
   url <-paste0("https://mrc-ide.github.io/covid19usa/downloads/data-model-estimates.csv")

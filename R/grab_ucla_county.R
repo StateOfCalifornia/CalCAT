@@ -1,3 +1,23 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[jsonlite]{toJSON, fromJSON}}
+#'  \code{\link[tibble]{enframe}}
+#'  \code{\link[purrr]{map}}
+#' @rdname grab_ucla_county
+#' @export 
+#' @importFrom jsonlite fromJSON
+#' @importFrom tibble enframe
+#' @importFrom purrr map_dbl
 grab_ucla_county <- function(State = state_name){
 
   url <- paste0("https://gist.githubusercontent.com/ZeroWeight/9a0c53e56c9bf846485a19a324cf74bd/raw/",str_to_lower(get_state_abbrv(State)),"_all_pred.json")

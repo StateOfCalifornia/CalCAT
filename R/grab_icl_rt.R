@@ -1,3 +1,17 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ST PARAM_DESCRIPTION, Default: state_abbrv
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname grab_icl_rt
+#' @export 
 grab_icl_rt <- function(ST = state_abbrv, State = state_name){
 
   url <-paste0("https://mrc-ide.github.io/covid19usa/downloads/time-varying-reproduction-number-scenarios.csv")

@@ -1,3 +1,16 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param State PARAM_DESCRIPTION, Default: state_name
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_state_abbrv
+#' @export 
 get_state_abbrv <- function(State = state_name){
   
   if (!inherits(State, "character")) {
@@ -26,6 +39,7 @@ get_state_abbrv <- function(State = state_name){
     stop("get_state_abbrv() should return character")
   }
   
+
   return(selected_abbrv)
 
 }
