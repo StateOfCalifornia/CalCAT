@@ -2,17 +2,11 @@ Package: CalCAT
 Title: A tool for understanding COVID-19 by the State of California
 Version: 0.0.0.1000
 Authors@R: 
-  person(given = "John",
-         family = "Pugliese",
+  person(given = "Robert",
+         family = "Walraven",
          role = c("aut", "cre"))
-  person(given = "Jason",
-         family = "Vargo",
-         role = c("aut", "cre"))
-  person(given = "David",
-         family = "Parr",
-         role = c("ctb"))
-Description: What the package does (one paragraph).
-License: What license is it under?
+Description: This model fits multiple peaks to JHU case and death data using the Empirical Skewed Gaussian model.   No assumptions are made about epidemiological factors that might change in the future.
+License: What license is it under?  No license.
 Imports: 
   config,
   golem,
