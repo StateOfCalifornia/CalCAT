@@ -23,6 +23,9 @@ The California version of the app brings together even more publicly available d
 # Contribute
 We can't wait to see what you do with this. Please fork, edit and send us back as [pull requests](https://github.com/StateOfCalifornia/CalCAT/pulls) the changes you'd like to see. Maybe you'll incorporate your own estimator of R-Effective, or add functionality to import data; you could improve on our simple ensemble estimates. Go Wild!
 
+# Contact Us
+Email us at [calcat@cdph.ca.gov](mailto:calcat@cdph.ca.gov) if you have questions, comments, or feedback.
+
 __A gift from California with love.__
 _“Together, all things are possible.”_
                 -- Cesar Chavez 
