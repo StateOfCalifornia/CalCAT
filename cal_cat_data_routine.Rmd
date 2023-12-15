@@ -36,9 +36,10 @@ library(data.table)
 library(jsonlite)
 library(knitr)
 library(rmarkdown)
-# library(RJDBC)
 library(kableExtra)
 library(googlesheets4)
+library(RSocrata)
+library(forecast)
 
 sapply(list.files("R", full.names = T), source)
 
@@ -57,190 +58,65 @@ state_fips_char <- get_state_fips(type = "character")
 
 data_path <- paste0("data/", state_abbrv,"/")
 dir.create(data_path)
+dir.create(paste0(data_path, "forecasts/"))
+dir.create(paste0(data_path, "nowcasts/"))
 
 ###############################################################
 ###############################################################
 ###############################################################
-
-```
-### COVIDActNow R-effective & Scenarios ###
-
-```{r include = FALSE}
-
-can_state_observed <- grab_can_state_observed_intervention()
-fwrite(can_state_observed, paste0(data_path,"can_state_reff_table.csv"))
-
-
-can_county_observed <- grab_can_county_observed_intervention()
-fwrite(can_county_observed, paste0(data_path,"can_full_reff_table.csv"))
-
-
-can_state_weak <- grab_can_state_weak_intervention()
-can_county_weak <- grab_can_county_weak_intervention()
-can_weak <- bind_rows(can_state_weak, can_county_weak)
-fwrite(can_weak, paste0(data_path,"can_weak_scenario.csv"))
-
-
-can_state_strong <- grab_can_state_strong_intervention()
-can_county_strong <- grab_can_county_strong_intervention()
-can_strong <- bind_rows(can_state_strong, can_county_strong)
-fwrite(can_strong, paste0(data_path,"can_strong_scenario.csv"))
-
 
 ```
 
 ## Nowcast/Forecast Data ####
-
 ```{r include = FALSE}
-### rt.live ###
+### Pull COVID-19 actuals ###
+covid_actuals <- grab_hhs_data(state_abbrv)
 
-
-rt_live <- grab_rt_live()
-
-fwrite(rt_live, paste0(data_path,"rt_live.csv"))
-
-```
-
-
-```{r include = FALSE}
-### Epiforecasts ###
-
-epi_forecast <- grab_epi_forecasts()
-
-fwrite(epi_forecast, paste0(data_path,"epi_forecast.csv"))
-
-```
-
-```{r include = FALSE}
-### Imperial College London ###
-
-icl_rt <- grab_icl_rt()
-
-fwrite(icl_rt, paste0(data_path,"icl_rt.csv"))
-
-```
-
-```{r include = FALSE}
-### LANL 
-
-### Cumualative Cases - Date will vary...so far, do not know how often these are updated.
-# LANL <- read.csv("https://covid-19.bsvgateway.org/forecast/us/files/2020-05-03/confirmed/2020-05-03_confirmed_quantiles_us_website.csv") %>%
-#   filter(simple_state == "california") %>% select(dates,q.10,q.50,q.90, truth_confirmed)
-# 
-# LANL_d <- read.csv("https://covid-19.bsvgateway.org/forecast/us/files/2020-05-03/deaths/2020-05-03_deaths_quantiles_us_website.csv") %>%
-#   filter(simple_state == "california") %>% select(dates,q.10,q.50,q.90, truth_confirmed)
-
-```
-
-
-```{r include = FALSE}
-####  Reich Lab 
-
-
-reich_lab  <- grab_reich_lab_deaths()
-
-fwrite(reich_lab, paste0(data_path,"reich_data.csv"))
-
+fwrite(covid_actuals, paste0(data_path, "covid_actuals.csv"))
 ```
 
 ```{r}
-### RAND ### 
+covid_admits_arima <- generate_admits_arima(covid_actuals, state_name)
 
-rand_df <- grab_rand()
-  
-fwrite(rand_df, paste0(data_path,"rand_scenarios.csv"))
-
-```
-
-
-```{r include = FALSE}
-### MOBS ### 
-#https://covid19.gleamproject.org/
-
-mobs <- grab_mobs()
-
-fwrite(mobs, paste0(data_path,"mobs.csv"))
-
-```
-
-
-```{r include = FALSE}
-### MIT ###
-#https://www.covidanalytics.io/projections
-#mit <- read.csv("data/covid_analytics_projections.csv", stringsAsFactors = FALSE) %>% filter(Province == "California")
-
-mit <- grab_mit()
-
-fwrite(mit, paste0(data_path,"mit.csv"))
-
-```
-
-
-```{r include = FALSE}
-### UCLA ###
-# "https://gist.githubusercontent.com/knowzou/ecacd65ab863979a9aea0f19a75252c3/raw/us_rt.json"
-
-ucla_state <- grab_ucla_state()
-
-fwrite(ucla_state, paste0(data_path,"ucla_state.csv"))
-
-```
-
-
-```{r include = FALSE}
-
-# UCLA county 
-
-# ucla_cnty <- grab_ucla_county()
-# 
-# fwrite(ucla_cnty, paste0(data_path,"ucla_county.csv"))
-
-
-```
-
-
-```{r include = FALSE}
-### Youyang Gu Group ### 
-# https://github.com/youyanggu/covid19_projections/raw/master/projections/combined/latest_us.csv
-
-ygg <- grab_ygg_state()
-
-fwrite(ygg, paste0(data_path,"ygg.csv"))
-
-```
-
-
-```{r include = FALSE}
-
-ygg.cnty <- grab_ygg_county()
-
-fwrite(ygg.cnty, paste0(data_path,"ygg_county.csv"))
-
-
-```
-
-
-```{r include = FALSE}
-#### Imperial College London ####
-
-icl_model <- grab_icl_model()
-
-fwrite(icl_model, paste0(data_path,"/icl_model.csv"))
-
-
-```
-
-
-```{r}
-ihme <-  grab_ihme()
-
-fwrite(ihme, paste0(data_path,"/ihme.csv"))
-
+saveRDS(covid_admits_arima, paste0(data_path, "forecasts/covid_admits_arima.rds"))
 ```
 
 ```{r}
-yugroup <-  grab_yugroup()
+covid_admits_damped_holts <- generate_admits_damped_holts(covid_actuals, state_name)
 
-fwrite(yugroup, paste0(data_path,"/yugroup.csv"))
+saveRDS(covid_admits_damped_holts, paste0(data_path, "forecasts/covid_admits_damped_holts.rds"))
+```
+
+```{r}
+covid_admits_holts <- generate_admits_holts(covid_actuals, state_name)
+
+saveRDS(covid_admits_holts, paste0(data_path, "forecasts/covid_admits_holts.rds"))
+```
+
+```{r}
+covid_admits_NNETAR <- generate_admits_NNETAR(covid_actuals, state_name)
+
+saveRDS(covid_admits_NNETAR, paste0(data_path, "forecasts/covid_admits_NNETAR.rds"))
+```
+
+```{r JRC}
+
+deconvolved_dat <- deconvolve_hosp_to_onset(covid_actuals)
+jrc <- generate_jrc(deconvolved_dat, state_name)
+    
+saveRDS(jrc, file.path(data_path, "nowcasts/jrc.rds"))
+```
+
+```{r Cislaghi}
+#deconvolved_dat <- deconvolve_hosp_to_onset(covid_actuals)
+cislaghi <- generate_cislaghi(deconvolved_dat, state_name)
+    
+saveRDS(cislaghi, file.path(data_path, "nowcasts/cislaghi.rds"))
+```
+
+```{r covidestim.org}
+covidestim <- grab_covidestim(state_name)
+
+saveRDS(covidestim, file.path(data_path, "nowcasts/covidestim.rds"))
 
 ```
