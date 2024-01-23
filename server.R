@@ -1,10 +1,13 @@
 # Developed by California COVID Modeling Team
-# Copyright 2020, State of California, Department of Public Health
+# Copyright 2024, State of California, Department of Public Health
 #
 # Mugdha Thakur, PhD.
 # California Department of Public Health
 #
 # Phoebe Lu, MPH
+# California Department of Public Health
+#
+# Tomas Leon, PhD
 # California Department of Public Health
 #
 # John Pugliese, PhD.
@@ -13,7 +16,7 @@
 # Jason Vargo, PhD.
 # California Department of Public Health
 #
-# Latest Version: Released 12/15/2023
+# Latest Version: Released 1/18/2024
 #
 # Alpha Version : Released 6/8/2020
 #
@@ -24,8 +27,6 @@
 #### “Together, all things are possible.”   ######
 ###################### -- Cesar Chavez ###########
 ##################################################
-
-library(shiny)
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
@@ -800,3 +801,4 @@ server <- function(input, output, session) {
   
 
 } # End Server
+    
