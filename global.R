@@ -4,34 +4,46 @@
 ###################### -- Cesar Chavez ###########
 ##################################################
 
-# Copyright 2020, State of California, Department of Public Health
+# Copyright 2024, State of California, Department of Public Health
+if(!require(pacman)){
+  install.packages("pacman")
+}
+required_packages <- c("shinythemes", "shinydashboard","shinyWidgets", "shinyjs",
+                       "shiny", "tibble","purrr","readr","stringr","DBI","ggplot2",
+                       "dplyr","tidyr","forcats","viridis","lubridate","data.table",
+                       "xts","plotly","scales","httr","jsonlite","RSocrata","forecast",
+                       "devtools", "Metrics")
 
-library(shinythemes)
-library(shinydashboard)
-library(shinyWidgets)
-library(shinyjs) # Facilitate the icon navigation
-#library(DT)
-library(shiny)
-library(shinyWidgets)
-library(tibble)
-library(purrr)
-library(readr)
-library(stringr)
-library(DBI)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(forcats)
-library(viridis)
-library(lubridate)
-library(data.table)
-library(xts)
-library(plotly)
-library(scales)
-library(httr)
-library(jsonlite)
-library(RSocrata)
-library(forecast)
+pacman::p_load(required_packages, character.only = TRUE)
+if(!require(estimateR)){
+  devtools::install_github("covid-19-Re/estimateR")
+}
+# library(shinythemes)
+# library(shinydashboard)
+# library(shinyWidgets)
+# library(shinyjs) # Facilitate the icon navigation
+# #library(DT)
+# library(shiny)
+# library(shinyWidgets)
+# library(tibble)
+# library(purrr)
+# library(readr)
+# library(stringr)
+# library(DBI)
+# library(ggplot2)
+# library(dplyr)
+# library(tidyr)
+# library(forcats)
+# library(viridis)
+# library(lubridate)
+# library(data.table)
+# library(xts)
+# library(plotly)
+# library(scales)
+# library(httr)
+# library(jsonlite)
+# library(RSocrata)
+# library(forecast)
 
 #Support Functions
 
